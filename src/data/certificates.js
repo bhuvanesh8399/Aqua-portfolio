@@ -21,42 +21,42 @@ export const certificates = [
     title: "Cloud Computing",
     provider: "NPTEL",
     category: "Academic Certification",
-    image: "/certificates/cloud-computing.png"
+    image: "/certificates/cloud-computing.pdf"
   },
   {
     title: "Conservation Geography",
     provider: "NPTEL",
     category: "Academic Certification",
-    image: "/certificates/conservation-geography.png"
+    image: "/certificates/conservation-geography.pdf"
   },
   {
     title: "Wild Life Ecology",
     provider: "NPTEL",
     category: "Academic Certification",
-    image: "/certificates/wild-life-ecology.png"
+    image: "/certificates/wild-life-ecology.pdf"
   },
   {
     title: "Entrepreneurship",
     provider: "NPTEL",
     category: "Academic Certification",
-    image: "/certificates/entrepreneurship.png"
+    image: "/certificates/entrepreneurship.pdf"
   },
   {
     title: "Psychology of Learning",
     provider: "NPTEL",
     category: "Academic Certification",
-    image: "/certificates/psychology-of-learning.png"
+    image: "/certificates/psychology-of-learning.pdf"
   },
   {
     title: "Encryptcon 24-Hr Hackathon",
     provider: "IIT Madras Shaastra",
     category: "Hackathon Participation",
-    image: "/certificates/encryptcon.png"
+    image: "/certificates/encryptcon-hackathon.pdf"
   },
   {
     title: "Codex Cryptum - ACM",
     provider: "VIT graVITas",
     category: "Event Participation",
-    image: "/certificates/codex-cryptum.png"
+    image: "/certificates/codex-cryptum-acm.pdf"
   }
 ];

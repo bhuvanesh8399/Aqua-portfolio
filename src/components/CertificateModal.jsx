@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
 export default function CertificateModal({ certificate, onClose }) {
+  const isPdf = certificate?.image?.toLowerCase().endsWith(".pdf");
+
   return (
     <AnimatePresence>
       {certificate && (
@@ -33,14 +35,22 @@ export default function CertificateModal({ certificate, onClose }) {
             </div>
 
             <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-              <img
-                src={certificate.image}
-                alt={certificate.title}
-                className="min-h-[260px] w-full object-contain"
-                onError={(event) => {
-                  event.currentTarget.style.display = "none";
-                }}
-              />
+              {isPdf ? (
+                <iframe
+                  title={certificate.title}
+                  src={certificate.image}
+                  className="min-h-[70vh] w-full bg-white"
+                />
+              ) : (
+                <img
+                  src={certificate.image}
+                  alt={certificate.title}
+                  className="min-h-[260px] w-full object-contain"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
+                />
+              )}
               <div className="p-6 text-center text-sm text-slate-300">
                 If this image is not visible, add it to: <code>public{certificate.image}</code>
               </div>
