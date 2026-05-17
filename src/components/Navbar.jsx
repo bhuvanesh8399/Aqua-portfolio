@@ -2,15 +2,28 @@ import { useEffect, useState } from "react";
 import { Download, Menu, X } from "lucide-react";
 
 const links = [
-  ["Home", "#home"],
-  ["Featured", "#featured"],
-  ["About", "#about"],
-  ["Skills", "#skills"],
-  ["Projects", "#projects"],
-  ["Contact", "#contact"]
+  ["Home", "#home", "home"],
+  ["Featured", "#featured", "featured"],
+  ["About", "#about", "about"],
+  ["Skills", "#skills", "skills"],
+  ["Projects", "#projects", "projects"],
+  ["Contact", "#contact", "contact"]
 ];
 
-export default function Navbar() {
+const mobileLinks = [
+  ["Home", "#home", "home"],
+  ["Featured", "#featured", "featured"],
+  ["About", "#about", "about"],
+  ["Skills", "#skills", "skills"],
+  ["Projects", "#projects", "projects"],
+  ["Certifications", "#certifications", "certifications"],
+  ["Challenges", "#challenges", "challenges"],
+  ["Teamwork", "#teamwork", "teamwork"],
+  ["Future", "#future", "future"],
+  ["Contact", "#contact", "contact"]
+];
+
+export default function Navbar({ activeSection = "home" }) {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -20,7 +33,7 @@ export default function Navbar() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      setScrolled(currentScrollY > 20);
+      setScrolled(currentScrollY > 18);
 
       if (currentScrollY < 50) {
         setShowNavbar(true);
@@ -43,70 +56,95 @@ export default function Navbar() {
         showNavbar ? "translate-y-0" : "-translate-y-full"
       } ${
         scrolled
-          ? "border-b border-white/10 bg-ocean-950/70 shadow-glow backdrop-blur-xl"
-          : "bg-transparent"
+          ? "border-b border-white/10 bg-ocean-950/78 shadow-glow backdrop-blur-xl"
+          : "bg-ocean-950/55 backdrop-blur-md"
       }`}
     >
-      <div className="section-container flex h-16 items-center justify-between">
-        <a href="#home" className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-2xl bg-aqua-400 font-black text-ocean-950">
+      <div className="section-container flex h-14 items-center justify-between">
+        <a href="#home" className="flex min-w-0 items-center gap-2.5">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-aqua-400 text-sm font-black text-ocean-950">
             B
           </span>
-          <span>
-            <span className="block font-black text-white">Bhuvanesh D</span>
-            <span className="block text-xs text-aqua-200">Ocean Journey Portfolio</span>
+          <span className="min-w-0">
+            <span className="block truncate text-sm font-black text-white">
+              Bhuvanesh D
+            </span>
+            <span className="hidden text-[11px] text-aqua-200 sm:block">
+              Ocean Journey Portfolio
+            </span>
           </span>
         </a>
 
-        <div className="hidden items-center gap-7 lg:flex">
-          {links.map(([label, href]) => (
-            <a key={label} href={href} className="text-sm font-semibold text-slate-200 hover:text-aqua-300">
-              {label}
-            </a>
-          ))}
+        <div className="hidden items-center gap-4 lg:flex">
+          {links.map(([label, href, id]) => {
+            const active = activeSection === id;
+            return (
+              <a
+                key={label}
+                href={href}
+                className={`rounded-full px-3 py-1.5 text-sm font-bold transition ${
+                  active
+                    ? "bg-aqua-400/15 text-aqua-200"
+                    : "text-slate-200 hover:bg-white/10 hover:text-aqua-200"
+                }`}
+              >
+                {label}
+              </a>
+            );
+          })}
         </div>
 
-        <a
-          href="/resume.pdf"
-          download
-          className="water-button hidden items-center gap-2 rounded-full bg-aqua-400 px-5 py-2.5 text-sm font-black text-ocean-950 transition hover:bg-aqua-300 lg:flex"
-        >
-          <Download size={16} />
-          Resume
-        </a>
+        <div className="hidden items-center gap-3 lg:flex">
+          <a
+            href="/resume.pdf"
+            download
+            className="water-button inline-flex items-center gap-2 rounded-full bg-aqua-400 px-4 py-2 text-sm font-black text-ocean-950 transition hover:bg-aqua-300"
+          >
+            <Download size={15} />
+            Resume
+          </a>
+        </div>
 
         <button
           onClick={() => setOpen((value) => !value)}
-          className="rounded-2xl border border-white/10 bg-white/10 p-2 text-white lg:hidden"
+          className="rounded-xl border border-white/10 bg-white/10 p-2 text-white lg:hidden"
           aria-label="Toggle menu"
         >
-          {open ? <X /> : <Menu />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-ocean-950/90 px-5 py-4 backdrop-blur-xl lg:hidden">
-          <div className="flex flex-col gap-2">
-            {links.map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                onClick={() => setOpen(false)}
-                className="rounded-2xl px-4 py-3 text-slate-200 hover:bg-white/10"
-              >
-                {label}
-              </a>
-            ))}
-
-            <a
-              href="/resume.pdf"
-              download
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-full bg-aqua-400 px-5 py-3 text-center font-black text-ocean-950"
-            >
-              Download Resume
-            </a>
+        <div className="border-t border-white/10 bg-ocean-950/95 px-4 py-4 backdrop-blur-xl lg:hidden">
+          <div className="grid gap-2 sm:grid-cols-2">
+            {mobileLinks.map(([label, href, id]) => {
+              const active = activeSection === id;
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  onClick={() => setOpen(false)}
+                  className={`rounded-2xl px-4 py-3 text-sm font-bold ${
+                    active
+                      ? "bg-aqua-400/15 text-aqua-200"
+                      : "text-slate-200 hover:bg-white/10"
+                  }`}
+                >
+                  {label}
+                </a>
+              );
+            })}
           </div>
+
+          <a
+            href="/resume.pdf"
+            download
+            onClick={() => setOpen(false)}
+            className="mt-4 flex items-center justify-center gap-2 rounded-full bg-aqua-400 px-5 py-3 text-sm font-black text-ocean-950"
+          >
+            <Download size={16} />
+            Download Resume
+          </a>
         </div>
       )}
     </nav>

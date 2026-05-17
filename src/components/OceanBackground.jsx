@@ -53,8 +53,16 @@ function getTransition(duration, reduceMotion) {
   };
 }
 
-export default function OceanBackground({ mode = "intro", reduceMotion = false }) {
+export default function OceanBackground({
+  mode = "intro",
+  reduceMotion = false,
+  activeSection = "home"
+}) {
   const current = sharkModes[mode] || sharkModes.intro;
+  const isHome = activeSection === "home";
+  const sharkOpacity = isHome
+    ? "opacity-0 md:opacity-10"
+    : "opacity-25 md:opacity-35";
 
   return (
     <div className="ocean-bg pointer-events-none fixed inset-0 z-0 overflow-hidden">
@@ -71,7 +79,7 @@ export default function OceanBackground({ mode = "intro", reduceMotion = false }
       <div className="bubble bubble-five" />
 
       <motion.div
-        className="absolute left-[5%] top-[36%] w-[120px] opacity-25 md:w-[220px] md:opacity-35 lg:w-[290px]"
+        className={`absolute left-[5%] top-[36%] w-[100px] md:w-[180px] lg:w-[230px] ${sharkOpacity}`}
         animate={
           reduceMotion
             ? {}
@@ -88,7 +96,7 @@ export default function OceanBackground({ mode = "intro", reduceMotion = false }
       </motion.div>
 
       <motion.div
-        className="absolute right-[6%] top-[55%] w-[115px] opacity-25 md:w-[210px] md:opacity-35 lg:w-[280px]"
+        className={`absolute right-[6%] top-[55%] w-[95px] md:w-[170px] lg:w-[220px] ${sharkOpacity}`}
         animate={
           reduceMotion
             ? {}

@@ -60,7 +60,11 @@ export default function App() {
 
   return (
     <main className="relative min-h-screen overflow-hidden">
-      <OceanBackground mode={sharkMode} reduceMotion={reduceMotion} />
+      <OceanBackground
+        mode={sharkMode}
+        reduceMotion={reduceMotion}
+        activeSection={activeSection}
+      />
 
       <JourneyProgress activeSection={activeSection} />
       <SharkMoodIndicator activeSection={activeSection} />
@@ -69,7 +73,7 @@ export default function App() {
       <CodezillaGuide activeSection={activeSection} />
 
       <div className="relative z-10">
-        <Navbar />
+        <Navbar activeSection={activeSection} />
 
         <section id="home" data-shark-mode="intro">
           <Hero />
