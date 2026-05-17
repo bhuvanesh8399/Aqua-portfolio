@@ -447,3 +447,13 @@ body {
     animation: none !important;
   }
 }
+
+img {
+  user-select: none;
+}
+
+@media (max-width: 640px) {
+  #home {
+    min-height: auto;
+  }
+}

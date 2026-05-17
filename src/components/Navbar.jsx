@@ -1,152 +1,165 @@
 import { useEffect, useState } from "react";
 import { Download, Menu, X } from "lucide-react";
 
-const links = [
-  ["Home", "#home", "home"],
-  ["Featured", "#featured", "featured"],
-  ["About", "#about", "about"],
-  ["Skills", "#skills", "skills"],
-  ["Projects", "#projects", "projects"],
-  ["Contact", "#contact", "contact"]
+const navLinks = [
+  { label: "Home", href: "#home" },
+  { label: "Featured", href: "#featured" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" }
 ];
 
-const mobileLinks = [
-  ["Home", "#home", "home"],
-  ["Featured", "#featured", "featured"],
-  ["About", "#about", "about"],
-  ["Skills", "#skills", "skills"],
-  ["Projects", "#projects", "projects"],
-  ["Certifications", "#certifications", "certifications"],
-  ["Challenges", "#challenges", "challenges"],
-  ["Teamwork", "#teamwork", "teamwork"],
-  ["Future", "#future", "future"],
-  ["Contact", "#contact", "contact"]
-];
-
-export default function Navbar({ activeSection = "home" }) {
-  const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
+export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    let lastY = window.scrollY;
 
-      setScrolled(currentScrollY > 18);
+    const onScroll = () => {
+      const currentY = window.scrollY;
 
-      if (currentScrollY < 50) {
-        setShowNavbar(true);
-      } else if (currentScrollY > lastScrollY && !open) {
-        setShowNavbar(false);
+      setScrolled(currentY > 20);
+
+      if (currentY > lastY && currentY > 120) {
+        setHidden(true);
       } else {
-        setShowNavbar(true);
+        setHidden(false);
       }
 
-      setLastScrollY(currentScrollY);
+      lastY = currentY;
+
+      const sections = navLinks
+        .map((link) => document.querySelector(link.href))
+        .filter(Boolean);
+
+      const current = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= 140 && rect.bottom >= 140;
+      });
+
+      if (current?.id) {
+        setActive(current.id);
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, open]);
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleNavigate = (href) => {
+    setOpen(false);
+    const target = document.querySelector(href);
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
-    <nav
+    <header
       className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
-        showNavbar ? "translate-y-0" : "-translate-y-full"
-      } ${
-        scrolled
-          ? "border-b border-white/10 bg-ocean-950/78 shadow-glow backdrop-blur-xl"
-          : "bg-ocean-950/55 backdrop-blur-md"
+        hidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="section-container flex h-14 items-center justify-between">
-        <a href="#home" className="flex min-w-0 items-center gap-2.5">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-aqua-400 text-sm font-black text-ocean-950">
-            B
+      <nav
+        className={`mx-auto flex max-w-7xl items-center justify-between px-4 py-3 transition-all duration-300 sm:px-6 lg:px-8 ${
+          scrolled
+            ? "border-b border-sky-300/10 bg-slate-950/75 shadow-lg shadow-sky-950/30 backdrop-blur-xl"
+            : "bg-slate-950/45 backdrop-blur-md"
+        }`}
+      >
+        <button
+          onClick={() => handleNavigate("#home")}
+          className="flex items-center gap-3 rounded-2xl text-left"
+          aria-label="Go to home"
+        >
+          <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl border border-sky-300/25 bg-sky-300/10 shadow-lg shadow-sky-500/10">
+            <img
+              src="/icons/shark-logo.png"
+              alt="Bhuvanesh D shark logo"
+              className="h-9 w-9 object-contain"
+            />
           </span>
-          <span className="min-w-0">
-            <span className="block truncate text-sm font-black text-white">
+
+          <span className="leading-tight">
+            <span className="block text-sm font-black text-white sm:text-base">
               Bhuvanesh D
             </span>
-            <span className="hidden text-[11px] text-aqua-200 sm:block">
+            <span className="block text-[10px] font-semibold text-sky-200/75 sm:text-xs">
               Ocean Journey Portfolio
             </span>
           </span>
-        </a>
+        </button>
 
-        <div className="hidden items-center gap-4 lg:flex">
-          {links.map(([label, href, id]) => {
-            const active = activeSection === id;
+        <div className="hidden items-center gap-2 lg:flex">
+          {navLinks.map((link) => {
+            const id = link.href.replace("#", "");
+            const isActive = active === id;
+
             return (
-              <a
-                key={label}
-                href={href}
-                className={`rounded-full px-3 py-1.5 text-sm font-bold transition ${
-                  active
-                    ? "bg-aqua-400/15 text-aqua-200"
-                    : "text-slate-200 hover:bg-white/10 hover:text-aqua-200"
+              <button
+                key={link.href}
+                onClick={() => handleNavigate(link.href)}
+                className={`rounded-full px-4 py-2 text-sm font-bold transition-all duration-300 ${
+                  isActive
+                    ? "bg-sky-300 text-slate-950 shadow-lg shadow-sky-400/20"
+                    : "text-white/80 hover:bg-white/10 hover:text-white"
                 }`}
               >
-                {label}
-              </a>
+                {link.label}
+              </button>
             );
           })}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="/resume.pdf"
-            download
-            className="water-button inline-flex items-center gap-2 rounded-full bg-aqua-400 px-4 py-2 text-sm font-black text-ocean-950 transition hover:bg-aqua-300"
-          >
-            <Download size={15} />
-            Resume
-          </a>
-        </div>
+        <a
+          href="/resume.pdf"
+          download
+          className="hidden items-center gap-2 rounded-full bg-sky-300 px-5 py-2.5 text-sm font-black text-slate-950 shadow-lg shadow-sky-400/20 transition hover:-translate-y-0.5 hover:bg-sky-200 lg:flex"
+        >
+          <Download size={16} />
+          Resume
+        </a>
 
         <button
-          onClick={() => setOpen((value) => !value)}
-          className="rounded-xl border border-white/10 bg-white/10 p-2 text-white lg:hidden"
+          onClick={() => setOpen((prev) => !prev)}
+          className="grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-white/10 text-white lg:hidden"
           aria-label="Toggle menu"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
-      </div>
+      </nav>
 
       {open && (
-        <div className="border-t border-white/10 bg-ocean-950/95 px-4 py-4 backdrop-blur-xl lg:hidden">
-          <div className="grid gap-2 sm:grid-cols-2">
-            {mobileLinks.map(([label, href, id]) => {
-              const active = activeSection === id;
-              return (
-                <a
-                  key={label}
-                  href={href}
-                  onClick={() => setOpen(false)}
-                  className={`rounded-2xl px-4 py-3 text-sm font-bold ${
-                    active
-                      ? "bg-aqua-400/15 text-aqua-200"
-                      : "text-slate-200 hover:bg-white/10"
-                  }`}
-                >
-                  {label}
-                </a>
-              );
-            })}
-          </div>
+        <div className="mx-4 mt-2 overflow-hidden rounded-3xl border border-sky-300/15 bg-slate-950/90 p-3 shadow-2xl shadow-sky-950/40 backdrop-blur-xl lg:hidden">
+          <div className="grid gap-2">
+            {navLinks.map((link) => (
+              <button
+                key={link.href}
+                onClick={() => handleNavigate(link.href)}
+                className="rounded-2xl px-4 py-3 text-left text-sm font-bold text-white/85 transition hover:bg-sky-300/10 hover:text-sky-100"
+              >
+                {link.label}
+              </button>
+            ))}
 
-          <a
-            href="/resume.pdf"
-            download
-            onClick={() => setOpen(false)}
-            className="mt-4 flex items-center justify-center gap-2 rounded-full bg-aqua-400 px-5 py-3 text-sm font-black text-ocean-950"
-          >
-            <Download size={16} />
-            Download Resume
-          </a>
+            <a
+              href="/resume.pdf"
+              download
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-sky-300 px-4 py-3 text-sm font-black text-slate-950"
+            >
+              <Download size={16} />
+              Download Resume
+            </a>
+          </div>
         </div>
       )}
-    </nav>
+    </header>
   );
 }
