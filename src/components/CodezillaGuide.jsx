@@ -136,7 +136,7 @@ export default function CodezillaGuide({ activeSection = "home" }) {
       {isMobile && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-24 right-4 z-50 grid h-12 w-12 place-items-center rounded-full border border-aqua-300/25 bg-ocean-950/80 text-aqua-200 shadow-glow backdrop-blur-xl lg:hidden"
+          className="fixed bottom-32 right-4 z-50 grid h-12 w-12 place-items-center rounded-full border border-aqua-300/25 bg-ocean-950/80 text-aqua-200 shadow-glow backdrop-blur-xl lg:hidden"
           aria-label="Open Codezilla Guide"
         >
           <MessageCircle size={21} />

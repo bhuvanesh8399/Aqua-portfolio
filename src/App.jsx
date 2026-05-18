@@ -23,11 +23,29 @@ export default function App() {
   const [sharkMode, setSharkMode] = useState("intro");
   const [activeSection, setActiveSection] = useState("home");
   const [selectedProject, setSelectedProject] = useState(null);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return localStorage.getItem("ocean-motion-enabled") === "false";
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle("motion-off", reduceMotion);
   }, [reduceMotion]);
+
+  useEffect(() => {
+    const handleMotionChange = (event) => {
+      setReduceMotion(!event.detail?.enabled);
+    };
+
+    window.addEventListener("ocean-motion-change", handleMotionChange);
+
+    return () => {
+      window.removeEventListener("ocean-motion-change", handleMotionChange);
+    };
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("[data-shark-mode]");
@@ -68,7 +86,7 @@ export default function App() {
 
       <JourneyProgress activeSection={activeSection} />
       <SharkMoodIndicator activeSection={activeSection} />
-      <MotionToggle reduceMotion={reduceMotion} setReduceMotion={setReduceMotion} />
+      <MotionToggle />
       <BackToTop />
       <CodezillaGuide activeSection={activeSection} />
 
