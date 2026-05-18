@@ -452,6 +452,10 @@ img {
   user-select: none;
 }
 
+#home {
+  isolation: isolate;
+}
+
 @media (max-width: 640px) {
   #home {
     min-height: auto;
