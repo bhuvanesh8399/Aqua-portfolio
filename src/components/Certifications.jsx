@@ -9,7 +9,7 @@ export default function Certifications() {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
 
   return (
-    <section className="px-6 py-24">
+    <section id="certifications" className="relative scroll-mt-28 px-6 py-24">
       <div className="section-container">
         <SectionTitle
           label="Certifications"

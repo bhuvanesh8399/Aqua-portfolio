@@ -12,6 +12,7 @@ import Hero from "./components/Hero";
 import FeaturedProjects from "./components/FeaturedProjects";
 import About from "./components/About";
 import Skills from "./components/Skills";
+import CodingProfiles from "./components/CodingProfiles";
 import ProjectGallery from "./components/ProjectGallery";
 import ProjectDrawer from "./components/ProjectDrawer";
 import StorySection from "./components/StorySection";
@@ -107,6 +108,10 @@ export default function App() {
 
         <section id="skills" data-shark-mode="fast">
           <Skills />
+        </section>
+
+        <section id="coding" data-shark-mode="focus">
+          <CodingProfiles />
         </section>
 
         <section id="projects" data-shark-mode="focus">

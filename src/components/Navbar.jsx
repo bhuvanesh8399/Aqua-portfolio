@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Download, Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Featured", href: "#featured" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" }
+  { label: "Home", mobileLabel: "Home", href: "#home" },
+  { label: "Featured", mobileLabel: "Featured Projects", href: "#featured" },
+  { label: "About", mobileLabel: "About", href: "#about" },
+  { label: "Skills", mobileLabel: "Skills", href: "#skills" },
+  { label: "Projects", mobileLabel: "Projects", href: "#projects" },
+  { label: "Certs", mobileLabel: "Certifications", href: "#certifications" },
+  { label: "Code", mobileLabel: "Coding Arena", href: "#coding" },
+  { label: "Contact", mobileLabel: "Contact", href: "#contact" }
 ];
 
 export default function Navbar() {
@@ -57,7 +59,10 @@ export default function Navbar() {
     const target = document.querySelector(href);
 
     if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
     }
   };
 
@@ -75,6 +80,7 @@ export default function Navbar() {
         }`}
       >
         <button
+          type="button"
           onClick={() => handleNavigate("#home")}
           className="flex items-center gap-3 rounded-2xl text-left"
           aria-label="Go to home"
@@ -97,16 +103,17 @@ export default function Navbar() {
           </span>
         </button>
 
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-1 lg:flex xl:gap-2">
           {navLinks.map((link) => {
             const id = link.href.replace("#", "");
             const isActive = active === id;
 
             return (
               <button
+                type="button"
                 key={link.href}
                 onClick={() => handleNavigate(link.href)}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition-all duration-300 ${
+                className={`rounded-full px-3 py-2 text-xs font-bold transition-all duration-300 xl:px-4 xl:text-sm ${
                   isActive
                     ? "bg-sky-300 text-slate-950 shadow-lg shadow-sky-400/20"
                     : "text-white/80 hover:bg-white/10 hover:text-white"
@@ -121,13 +128,14 @@ export default function Navbar() {
         <a
           href="/resume.pdf"
           download
-          className="hidden items-center gap-2 rounded-full bg-sky-300 px-5 py-2.5 text-sm font-black text-slate-950 shadow-lg shadow-sky-400/20 transition hover:-translate-y-0.5 hover:bg-sky-200 lg:flex"
+          className="hidden items-center gap-2 rounded-full bg-sky-300 px-4 py-2.5 text-sm font-black text-slate-950 shadow-lg shadow-sky-400/20 transition hover:-translate-y-0.5 hover:bg-sky-200 xl:flex"
         >
           <Download size={16} />
           Resume
         </a>
 
         <button
+          type="button"
           onClick={() => setOpen((prev) => !prev)}
           className="grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-white/10 text-white lg:hidden"
           aria-label="Toggle menu"
@@ -137,17 +145,27 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="mx-4 mt-2 overflow-hidden rounded-3xl border border-sky-300/15 bg-slate-950/90 p-3 shadow-2xl shadow-sky-950/40 backdrop-blur-xl lg:hidden">
+        <div className="mx-4 mt-2 max-h-[75vh] overflow-y-auto rounded-3xl border border-sky-300/15 bg-slate-950/90 p-3 shadow-2xl shadow-sky-950/40 backdrop-blur-xl lg:hidden">
           <div className="grid gap-2">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleNavigate(link.href)}
-                className="rounded-2xl px-4 py-3 text-left text-sm font-bold text-white/85 transition hover:bg-sky-300/10 hover:text-sky-100"
-              >
-                {link.label}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const id = link.href.replace("#", "");
+              const isActive = active === id;
+
+              return (
+                <button
+                  type="button"
+                  key={link.href}
+                  onClick={() => handleNavigate(link.href)}
+                  className={`rounded-2xl px-4 py-3 text-left text-sm font-bold transition ${
+                    isActive
+                      ? "bg-sky-300 text-slate-950"
+                      : "text-white/85 hover:bg-sky-300/10 hover:text-sky-100"
+                  }`}
+                >
+                  {link.mobileLabel || link.label}
+                </button>
+              );
+            })}
 
             <a
               href="/resume.pdf"
