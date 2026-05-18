@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Projects", mobileLabel: "Projects", href: "#projects" },
   { label: "Certs", mobileLabel: "Certifications", href: "#certifications" },
   { label: "Code", mobileLabel: "Coding Arena", href: "#coding" },
+  { label: "Lead", mobileLabel: "Leadership & Impact", href: "#leadership" },
   { label: "Contact", mobileLabel: "Contact", href: "#contact" }
 ];
 

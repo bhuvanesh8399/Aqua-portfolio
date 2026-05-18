@@ -2,6 +2,7 @@ import {
   ArrowUpRight,
   Download,
   Github,
+  Leaf,
   Linkedin,
   Mail,
   Trophy
@@ -11,9 +12,10 @@ const quickLinks = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
+  { label: "Coding Arena", href: "#coding" },
+  { label: "Leadership", href: "#leadership" },
   { label: "Projects", href: "#projects" },
   { label: "Certifications", href: "#certifications" },
-  { label: "Coding Arena", href: "#coding" },
   { label: "Contact", href: "#contact" }
 ];
 
@@ -32,6 +34,11 @@ const profileLinks = [
     label: "LeetCode",
     href: "https://leetcode.com/u/bhuvanesh_0326/",
     icon: Trophy
+  },
+  {
+    label: "Nature Club",
+    href: "https://www.linkedin.com/in/nature-club-kare-645564364/",
+    icon: Leaf
   }
 ];
 
@@ -174,7 +181,7 @@ export default function Footer() {
               Resend.
             </p>
 
-            <p>© 2026 Bhuvanesh D. Crafted through the Ocean Journey.</p>
+            <p>(c) 2026 Bhuvanesh D. Crafted through the Ocean Journey.</p>
           </div>
         </div>
       </div>

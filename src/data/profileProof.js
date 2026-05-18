@@ -1,13 +1,19 @@
 import {
   BookOpen,
   Brain,
+  CalendarCheck,
   Code2,
   Database,
   Github,
   GraduationCap,
+  Leaf,
   Linkedin,
+  Megaphone,
   Network,
-  Trophy
+  Recycle,
+  Sprout,
+  Trophy,
+  Users
 } from "lucide-react";
 
 export const collegeJourney = {
@@ -118,5 +124,82 @@ export const proofHighlights = [
     label: "Database + Backend",
     value: "DBMS / SQL",
     icon: Database
+  }
+];
+
+export const leadershipImpact = {
+  role: "Nature Club President",
+  organization: "Nature Club - KARE",
+  institution: "Kalasalingam Academy of Research and Education",
+  link: "https://www.linkedin.com/in/nature-club-kare-645564364/",
+  summary:
+    "As President of Nature Club - KARE, I lead student-driven environmental initiatives focused on sustainability, green campus drives, cleanliness campaigns, awareness programs, and community outreach. This experience strengthened my leadership, teamwork, planning, communication, and responsibility beyond technical learning.",
+  vision:
+    "To foster environmentally conscious students who lead with responsibility and care for nature.",
+  mission:
+    "To transform awareness into action through student participation, environmental learning, outreach, and innovation.",
+  activities: [
+    "Tree Plantation",
+    "Green Campus Drives",
+    "Cleanliness Campaigns",
+    "Plastic-Free Awareness",
+    "School & Village Outreach",
+    "Environmental Awareness",
+    "Sustainability Workshops",
+    "Eco-Art & Nature Photography"
+  ],
+  skills: [
+    "Leadership",
+    "Team Coordination",
+    "Event Planning",
+    "Communication",
+    "Community Outreach",
+    "Sustainability Thinking",
+    "Social Responsibility",
+    "Public Awareness"
+  ]
+};
+
+export const leadershipStats = [
+  {
+    label: "Role",
+    value: "President",
+    icon: Users
+  },
+  {
+    label: "Focus",
+    value: "Sustainability",
+    icon: Leaf
+  },
+  {
+    label: "Impact",
+    value: "Awareness",
+    icon: Megaphone
+  },
+  {
+    label: "Action",
+    value: "Green Drives",
+    icon: Sprout
+  }
+];
+
+export const leadershipHighlights = [
+  {
+    title: "Student Leadership",
+    description:
+      "Leading student participation, coordination, and environmental action inside the campus community.",
+    icon: Users
+  },
+  {
+    title: "Event Planning",
+    description:
+      "Supporting green drives, awareness programs, campaigns, workshops, and environmental activities.",
+    icon: CalendarCheck
+  },
+  {
+    title: "Sustainability Action",
+    description:
+      "Promoting responsible citizenship through plastic-free awareness, waste management, and nature-focused activities.",
+    icon: Recycle
   }
 ];

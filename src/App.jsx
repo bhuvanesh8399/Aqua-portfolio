@@ -13,6 +13,7 @@ import FeaturedProjects from "./components/FeaturedProjects";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import CodingProfiles from "./components/CodingProfiles";
+import LeadershipImpact from "./components/LeadershipImpact";
 import ProjectGallery from "./components/ProjectGallery";
 import ProjectDrawer from "./components/ProjectDrawer";
 import StorySection from "./components/StorySection";
@@ -112,6 +113,10 @@ export default function App() {
 
         <section id="coding" data-shark-mode="focus">
           <CodingProfiles />
+        </section>
+
+        <section id="leadership" data-shark-mode="explore">
+          <LeadershipImpact />
         </section>
 
         <section id="projects" data-shark-mode="focus">
